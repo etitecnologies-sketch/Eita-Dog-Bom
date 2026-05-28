@@ -401,6 +401,132 @@
       display: block;
       border-radius: 18px 18px 0 0;
     }
+
+    /* ===== MONTADOR DE PEDIDO ===== */
+    .btn-montar {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; padding: 16px;
+      background: linear-gradient(135deg, var(--red) 0%, #a01010 100%);
+      border: none; border-radius: 14px;
+      color: #fff; font-family: 'Nunito', sans-serif;
+      font-size: 16px; font-weight: 900; letter-spacing: 0.5px;
+      cursor: pointer; transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 4px 20px rgba(204,27,27,0.4); margin: 4px 0 0;
+    }
+    .btn-montar:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(204,27,27,0.5); }
+    .btn-montar:active { transform: scale(0.98); }
+    .order-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.75); z-index: 1000;
+      backdrop-filter: blur(3px); align-items: flex-end;
+    }
+    .order-overlay.active { display: flex; }
+    .order-sheet {
+      background: #100d00; border-radius: 20px 20px 0 0;
+      width: 100%; max-height: 92vh; overflow-y: auto;
+      transform: translateY(100%);
+      transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    .order-overlay.active .order-sheet { transform: translateY(0); }
+    .order-header {
+      position: sticky; top: 0; background: #100d00;
+      padding: 16px 20px 14px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.08); z-index: 1;
+    }
+    .order-title { font-size: 18px; font-weight: 900; color: var(--yellow); }
+    .order-close {
+      background: rgba(255,255,255,0.08); border: none; color: var(--text);
+      font-size: 16px; width: 32px; height: 32px; border-radius: 50%;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+    .order-body { padding: 20px 20px 0; }
+    .order-step-label {
+      font-size: 10px; font-weight: 900; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 12px;
+    }
+    .order-dog-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+    .order-dog-option {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 16px; background: var(--card);
+      border: 1.5px solid rgba(255,255,255,0.08); border-radius: 12px;
+      cursor: pointer; transition: border-color 0.15s, background 0.15s;
+    }
+    .order-dog-option input[type="radio"] { display: none; }
+    .order-dog-option.selected { border-color: var(--yellow); background: rgba(255,214,0,0.07); }
+    .order-dog-emoji { font-size: 22px; }
+    .order-dog-info { flex: 1; }
+    .order-dog-name { font-size: 14px; font-weight: 800; color: var(--white); }
+    .order-dog-price { font-size: 13px; font-weight: 900; color: var(--gold); margin-top: 3px; }
+    .order-dog-check {
+      width: 20px; height: 20px; border: 2px solid rgba(255,255,255,0.2); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: all 0.15s; font-size: 11px; font-weight: 900; color: #000;
+    }
+    .order-dog-option.selected .order-dog-check { background: var(--yellow); border-color: var(--yellow); }
+    .order-qty-row { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+    .order-qty-label { font-size: 13px; font-weight: 700; color: var(--text); flex: 1; }
+    .order-stepper { display: flex; align-items: center; background: var(--card); border-radius: 10px; overflow: hidden; }
+    .order-stepper button {
+      background: none; border: none; color: var(--yellow);
+      font-size: 22px; font-weight: 900; width: 44px; height: 44px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+    .order-stepper button:active { background: rgba(255,214,0,0.1); }
+    .order-stepper-val { min-width: 36px; text-align: center; font-size: 16px; font-weight: 900; color: var(--white); }
+    .order-extras-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+    .order-extra-option {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 14px; background: var(--card);
+      border: 1.5px solid rgba(255,255,255,0.08); border-radius: 10px;
+      cursor: pointer; transition: border-color 0.15s, background 0.15s;
+    }
+    .order-extra-option input[type="checkbox"] { display: none; }
+    .order-extra-option.selected { border-color: rgba(245,168,0,0.5); background: rgba(245,168,0,0.06); }
+    .order-extra-emoji { font-size: 18px; }
+    .order-extra-name { flex: 1; font-size: 13px; font-weight: 700; color: var(--text); }
+    .order-extra-price { font-size: 12px; font-weight: 800; color: var(--gold); }
+    .order-extra-check {
+      width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.2);
+      border-radius: 4px; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: all 0.15s; font-size: 10px; font-weight: 900; color: #000;
+    }
+    .order-extra-option.selected .order-extra-check { background: var(--gold); border-color: var(--gold); }
+    .order-delivery-toggle { display: flex; gap: 8px; margin-bottom: 14px; }
+    .order-delivery-btn {
+      flex: 1; padding: 12px; background: var(--card);
+      border: 1.5px solid rgba(255,255,255,0.1); border-radius: 10px;
+      color: var(--muted); font-family: 'Nunito', sans-serif;
+      font-size: 13px; font-weight: 800; cursor: pointer; transition: all 0.15s; text-align: center;
+    }
+    .order-delivery-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(245,168,0,0.08); }
+    .order-address-field { display: none; margin-bottom: 20px; }
+    .order-address-field.show { display: block; }
+    .order-address-input {
+      width: 100%; background: var(--card);
+      border: 1.5px solid rgba(255,255,255,0.1); border-radius: 10px;
+      color: var(--text); font-family: 'Nunito', sans-serif;
+      font-size: 14px; font-weight: 600; padding: 12px 14px; outline: none; resize: none;
+    }
+    .order-address-input:focus { border-color: rgba(245,168,0,0.4); }
+    .order-address-input::placeholder { color: var(--muted); }
+    .order-footer {
+      position: sticky; bottom: 0; background: #100d00;
+      padding: 16px 20px 28px; border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .order-total-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+    .order-total-label { font-size: 13px; font-weight: 700; color: var(--muted); }
+    .order-total-value { font-size: 24px; font-weight: 900; color: var(--yellow); }
+    .order-send-btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; padding: 16px; background: #25D366; border: none; border-radius: 14px;
+      color: #fff; font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 900;
+      cursor: pointer; transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+    }
+    .order-send-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(37,211,102,0.5); }
+    .order-send-btn:active { transform: scale(0.98); }
+    .order-send-btn:disabled { background: #444; box-shadow: none; cursor: not-allowed; opacity: 0.6; }
   </style>
 </head>
 <body>
@@ -537,6 +663,135 @@
     <div class="extra-row"><span class="extra-name">🥔 Batata Palha Extra</span></div>
   </div>
 
+
+  <!-- MONTADOR DE PEDIDO -->
+  <button class="btn-montar" onclick="abrirMontador()">🌭 Montar meu pedido</button>
+
+  <!-- MODAL -->
+  <div class="order-overlay" id="order-overlay" onclick="fecharMontadorOverlay(event)">
+    <div class="order-sheet">
+      <div class="order-header">
+        <span class="order-title">🌭 Monte seu Dog</span>
+        <button class="order-close" onclick="fecharMontador()">✕</button>
+      </div>
+      <div class="order-body">
+        <p class="order-step-label">Escolha o dog</p>
+        <div class="order-dog-list">
+          <label class="order-dog-option" data-price="11.99" onclick="selecionarDog(this)">
+            <input type="radio" name="dog" value="Hot Dog Tradicional">
+            <span class="order-dog-emoji">🌭</span>
+            <div class="order-dog-info">
+              <div class="order-dog-name">Tradicional</div>
+              <div class="order-dog-price">R$ 11,99</div>
+            </div>
+            <div class="order-dog-check"></div>
+          </label>
+          <label class="order-dog-option" data-price="14.99" onclick="selecionarDog(this)">
+            <input type="radio" name="dog" value="Hot Dog de Frango Cremoso">
+            <span class="order-dog-emoji">⭐</span>
+            <div class="order-dog-info">
+              <div class="order-dog-name">Frango Cremoso</div>
+              <div class="order-dog-price">R$ 14,99</div>
+            </div>
+            <div class="order-dog-check"></div>
+          </label>
+          <label class="order-dog-option" data-price="14.99" onclick="selecionarDog(this)">
+            <input type="radio" name="dog" value="Hot Dog de Calabresa">
+            <span class="order-dog-emoji">⭐</span>
+            <div class="order-dog-info">
+              <div class="order-dog-name">Calabresa</div>
+              <div class="order-dog-price">R$ 14,99</div>
+            </div>
+            <div class="order-dog-check"></div>
+          </label>
+          <label class="order-dog-option" data-price="17.99" onclick="selecionarDog(this)">
+            <input type="radio" name="dog" value="Hot Dog Tudão">
+            <span class="order-dog-emoji">👑</span>
+            <div class="order-dog-info">
+              <div class="order-dog-name">Tudão</div>
+              <div class="order-dog-price">R$ 17,99</div>
+            </div>
+            <div class="order-dog-check"></div>
+          </label>
+        </div>
+
+        <p class="order-step-label">Quantidade</p>
+        <div class="order-qty-row">
+          <span class="order-qty-label">Quantos dogs?</span>
+          <div class="order-stepper">
+            <button onclick="mudarQtd(-1)">−</button>
+            <span class="order-stepper-val" id="order-qty">1</span>
+            <button onclick="mudarQtd(1)">+</button>
+          </div>
+        </div>
+
+        <p class="order-step-label">Adicionais</p>
+        <div class="order-extras-list">
+          <label class="order-extra-option" data-price="3.00" onclick="toggleExtra(this)">
+            <input type="checkbox" value="Bacon Extra">
+            <span class="order-extra-emoji">🥓</span>
+            <span class="order-extra-name">Bacon Extra</span>
+            <span class="order-extra-price">+R$ 3,00</span>
+            <div class="order-extra-check"></div>
+          </label>
+          <label class="order-extra-option" data-price="2.50" onclick="toggleExtra(this)">
+            <input type="checkbox" value="Molho Cheddar">
+            <span class="order-extra-emoji">🧀</span>
+            <span class="order-extra-name">Molho Cheddar</span>
+            <span class="order-extra-price">+R$ 2,50</span>
+            <div class="order-extra-check"></div>
+          </label>
+          <label class="order-extra-option" data-price="2.00" onclick="toggleExtra(this)">
+            <input type="checkbox" value="Requeijão Cremoso">
+            <span class="order-extra-emoji">🥛</span>
+            <span class="order-extra-name">Requeijão Cremoso</span>
+            <span class="order-extra-price">+R$ 2,00</span>
+            <div class="order-extra-check"></div>
+          </label>
+          <label class="order-extra-option" data-price="2.00" onclick="toggleExtra(this)">
+            <input type="checkbox" value="Queijo Muçarela">
+            <span class="order-extra-emoji">🧀</span>
+            <span class="order-extra-name">Queijo Muçarela</span>
+            <span class="order-extra-price">+R$ 2,00</span>
+            <div class="order-extra-check"></div>
+          </label>
+          <label class="order-extra-option" data-price="2.00" onclick="toggleExtra(this)">
+            <input type="checkbox" value="Purê de Batata">
+            <span class="order-extra-emoji">🥔</span>
+            <span class="order-extra-name">Purê de Batata</span>
+            <span class="order-extra-price">+R$ 2,00</span>
+            <div class="order-extra-check"></div>
+          </label>
+          <label class="order-extra-option" data-price="1.50" onclick="toggleExtra(this)">
+            <input type="checkbox" value="Batata Palha Extra">
+            <span class="order-extra-emoji">🥔</span>
+            <span class="order-extra-name">Batata Palha Extra</span>
+            <span class="order-extra-price">+R$ 1,50</span>
+            <div class="order-extra-check"></div>
+          </label>
+        </div>
+
+        <p class="order-step-label">Retirada ou Entrega?</p>
+        <div class="order-delivery-toggle">
+          <button class="order-delivery-btn active" id="btn-retirada" onclick="setDelivery('retirada')">🏃 Retirada</button>
+          <button class="order-delivery-btn" id="btn-entrega" onclick="setDelivery('entrega')">🛵 Entrega</button>
+        </div>
+        <div class="order-address-field" id="order-address-field">
+          <textarea class="order-address-input" id="order-address" placeholder="Informe seu endereço completo..." rows="2"></textarea>
+        </div>
+      </div>
+      <div class="order-footer">
+        <div class="order-total-row">
+          <span class="order-total-label">Total estimado</span>
+          <span class="order-total-value" id="order-total">R$ 0,00</span>
+        </div>
+        <button class="order-send-btn" id="order-send-btn" onclick="enviarPedido()" disabled>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.549 4.099 1.51 5.82L.057 23.062a.75.75 0 00.918.906l5.099-1.453A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.89 0-3.663-.49-5.2-1.351l-.372-.213-3.025.862.88-3.11-.228-.37A9.952 9.952 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          Enviar pelo WhatsApp
+        </button>
+      </div>
+    </div>
+  </div>
   <!-- HORÁRIOS -->
   <p class="section-label">Horário de funcionamento</p>
   <div class="hours-card">
@@ -626,6 +881,81 @@
       }, 25);
     }
   })();
+
+  // ===== MONTADOR DE PEDIDO =====
+  var orderQty = 1;
+  var orderDelivery = 'retirada';
+
+  function abrirMontador() {
+    document.getElementById('order-overlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function fecharMontador() {
+    document.getElementById('order-overlay').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  function fecharMontadorOverlay(e) {
+    if (e.target === document.getElementById('order-overlay')) fecharMontador();
+  }
+  function selecionarDog(el) {
+    document.querySelectorAll('.order-dog-option').forEach(function(o) { o.classList.remove('selected'); o.querySelector('.order-dog-check').textContent = ''; });
+    el.classList.add('selected');
+    el.querySelector('.order-dog-check').textContent = '✓';
+    el.querySelector('input[type="radio"]').checked = true;
+    atualizarTotal();
+  }
+  function toggleExtra(el) {
+    el.classList.toggle('selected');
+    var check = el.querySelector('.order-extra-check');
+    var cb = el.querySelector('input[type="checkbox"]');
+    cb.checked = !cb.checked;
+    check.textContent = cb.checked ? '✓' : '';
+    atualizarTotal();
+  }
+  function mudarQtd(delta) {
+    orderQty = Math.max(1, Math.min(10, orderQty + delta));
+    document.getElementById('order-qty').textContent = orderQty;
+    atualizarTotal();
+  }
+  function setDelivery(tipo) {
+    orderDelivery = tipo;
+    document.getElementById('btn-retirada').classList.toggle('active', tipo === 'retirada');
+    document.getElementById('btn-entrega').classList.toggle('active', tipo === 'entrega');
+    document.getElementById('order-address-field').classList.toggle('show', tipo === 'entrega');
+  }
+  function atualizarTotal() {
+    var dogEl = document.querySelector('.order-dog-option.selected');
+    var sendBtn = document.getElementById('order-send-btn');
+    if (!dogEl) { document.getElementById('order-total').textContent = 'R$ 0,00'; sendBtn.disabled = true; return; }
+    var dogPrice = parseFloat(dogEl.dataset.price);
+    var extrasTotal = 0;
+    document.querySelectorAll('.order-extra-option.selected').forEach(function(e) { extrasTotal += parseFloat(e.dataset.price); });
+    var total = (dogPrice + extrasTotal) * orderQty;
+    document.getElementById('order-total').textContent = 'R$ ' + total.toFixed(2).replace('.', ',');
+    sendBtn.disabled = false;
+  }
+  function enviarPedido() {
+    var dogEl = document.querySelector('.order-dog-option.selected');
+    if (!dogEl) return;
+    var dogName = dogEl.querySelector('input').value;
+    var dogPrice = parseFloat(dogEl.dataset.price);
+    var extras = [], extrasTotal = 0;
+    document.querySelectorAll('.order-extra-option.selected').forEach(function(e) {
+      var p = parseFloat(e.dataset.price);
+      extras.push(e.querySelector('.order-extra-name').textContent + ' (+R$ ' + p.toFixed(2).replace('.', ',') + ')');
+      extrasTotal += p;
+    });
+    var total = (dogPrice + extrasTotal) * orderQty;
+    var msg = 'Oi! Quero fazer um pedido 🌭\n\n';
+    msg += '🐕 *' + orderQty + 'x ' + dogName + '* — R$ ' + dogPrice.toFixed(2).replace('.', ',');
+    if (extras.length > 0) { msg += '\n\n➕ *Adicionais:*\n'; extras.forEach(function(e) { msg += '• ' + e + '\n'; }); }
+    msg += '\n💰 *Total: R$ ' + total.toFixed(2).replace('.', ',') + '*';
+    if (orderDelivery === 'entrega') {
+      var addr = document.getElementById('order-address').value.trim();
+      msg += '\n\n🛵 *Entrega em:* ' + (addr || 'endereço a informar');
+    } else { msg += '\n\n🏃 *Retirada no local*'; }
+    window.open('https://wa.me/5563992212263?text=' + encodeURIComponent(msg), '_blank');
+  }
 </script>
 </body>
 </html>
