@@ -795,10 +795,13 @@
   <!-- HORÁRIOS -->
   <p class="section-label">Horário de funcionamento</p>
   <div class="hours-card">
-    <div class="hours-row"><span class="hours-day">Terça – Quinta</span><span class="hours-time">19h – 23h</span></div>
-    <div class="hours-row"><span class="hours-day">Sexta</span><span class="hours-time">18:30 – 00h</span></div>
-    <div class="hours-row"><span class="hours-day">Sábado</span><span class="hours-time">18:30 – 00h</span></div>
-    <div class="hours-row"><span class="hours-day">Domingo</span><span class="hours-time">18:30 – 00h</span></div>
+    <div class="hours-row"><span class="hours-day">Domingo</span><span class="hours-time">Fechada</span></div>
+    <div class="hours-row"><span class="hours-day">Segunda-Feira</span><span class="hours-time">19:00 - 23:30</span></div>
+    <div class="hours-row"><span class="hours-day">Terça-Feira</span><span class="hours-time">19:00 - 23:30</span></div>
+    <div class="hours-row"><span class="hours-day">Quarta-Feira</span><span class="hours-time">Fechada</span></div>
+    <div class="hours-row"><span class="hours-day">Quinta-Feira</span><span class="hours-time">19:00 - 23:30</span></div>
+    <div class="hours-row"><span class="hours-day">Sexta-Feira</span><span class="hours-time">18:30 - 23:30</span></div>
+    <div class="hours-row"><span class="hours-day">Sábado</span><span class="hours-time">18:30 - 23:30</span></div>
   </div>
 
   <!-- CONTADOR -->
@@ -837,7 +840,7 @@
     var badge = document.getElementById('status-badge');
 
     // Horarios: {dia: [abertura, fechamento]} em minutos
-    var schedule = { 0:[1110,1440], 2:[1140,1380], 3:[1140,1380], 4:[1140,1380], 5:[1110,1440], 6:[1110,1440] };
+    var schedule = { 1:[1140,1410], 2:[1140,1410], 4:[1140,1410], 5:[1110,1410], 6:[1110,1410] };
 
     function fmtTime(mins) {
       var hh = Math.floor(mins / 60), mm = mins % 60;
